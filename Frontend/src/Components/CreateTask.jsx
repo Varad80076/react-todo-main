@@ -22,8 +22,8 @@ export default function CreateTask({ tasks, setTasks }) {
         };
 
         axios.post(`${import.meta.env.VITE_API_URL}/tasks`, newTask)
-            .then(() => {
-                setTasks((prev) => [...prev, newTask]);
+            .then(res => {
+        setTasks(prev => [...prev, res.data]); 
                 setTaskName("");
                 toast.success('Task created successfully');
             })

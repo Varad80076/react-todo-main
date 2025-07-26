@@ -32,7 +32,7 @@ function Section({ status, tasks, setTasks }) {
                     axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
                         .then(res => setTasks(res.data));
                     toast.success("Task moved");
-                    window.location.reload(); 
+                    // window.location.reload(); 
                 })
                 .catch(() => toast.error("Failed to update task status"));
         },
@@ -76,7 +76,7 @@ function Task({ task, setTasks }) {
             .then(() => {
                 setTasks(prev => prev.filter(t => t.id !== task.id));
                 toast.success("Task deleted");
-                window.location.reload(); 
+                // window.location.reload(); 
             })
             .catch(() => toast.error("Failed to delete task"));
     };
