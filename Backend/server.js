@@ -4,7 +4,10 @@ const db = require('./db');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*' // safer for prod
+}));
+
 app.use(express.json());
 
 // Get all tasks
