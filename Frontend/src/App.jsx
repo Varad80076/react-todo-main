@@ -11,7 +11,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/tasks")
+    axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
       .then(res => setTasks(res.data))
       .catch(err => console.error(err));
   }, []);

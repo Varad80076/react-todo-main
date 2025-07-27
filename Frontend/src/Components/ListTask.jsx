@@ -27,14 +27,15 @@ function Section({ status, tasks, setTasks }) {
             if (!item?.id) return;
 
             // Update backend and refresh all tasks from server
-            axios.put(`${import.meta.env.VITE_API_URL}/tasks/${item.id}`, { status })
-                .then(() => {
-                    axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
-                        .then(res => setTasks(res.data));
-                    toast.success("Task moved");
-                    window.location.reload(); 
-                })
-                .catch(() => toast.error("Failed to update task status"));
+           // inside drop handler
+axios.put(`${import.meta.env.VITE_API_URL}/tasks/${item.id}`, { status })
+    .then(() => {
+        axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
+            .then(res => setTasks(res.data)); // ✅ UI updates correctly
+        toast.success("Task moved");
+    })
+    .catch(() => toast.error("Failed to update task status"));
+
         },
         collect: monitor => ({
             isOver: !!monitor.isOver(),
@@ -72,13 +73,14 @@ function Task({ task, setTasks }) {
     }));
 
     const handleDelete = () => {
-        axios.delete(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`)
-            .then(() => {
-                setTasks(prev => prev.filter(t => t.id !== task.id));
-                toast.success("Task deleted");
-                window.location.reload(); 
-            })
-            .catch(() => toast.error("Failed to delete task"));
+        // inside handleDelete
+axios.delete(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`)
+    .then(() => {
+        setTasks(prev => prev.filter(t => t.id !== task.id)); // ✅ UI updates directly
+        toast.success("Task deleted");
+    })
+    .catch(() => toast.error("Failed to delete task"));
+
     };
 
     return (
