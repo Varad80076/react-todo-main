@@ -30,8 +30,8 @@ function Section({ status, tasks, setTasks }) {
            // inside drop handler
 axios.put(`${import.meta.env.VITE_API_URL}/tasks/${item.id}`, { status })
     .then(() => {
-        axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
-            .then(res => setTasks(res.data)); // ✅ UI updates correctly
+        // axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
+        //     .then(res => setTasks(res.data)); // ✅ UI updates correctly
             window.location.reload();
             setTasks(prev => prev.map(t => t.id === item.id ? { ...t, status } : t)); // ✅ Optimistic update
             toast.success("Task moved");
