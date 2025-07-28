@@ -33,11 +33,10 @@ axios.put(`${import.meta.env.VITE_API_URL}/tasks/${item.id}`, { status })
         axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
             .then(res => setTasks(res.data)); // ✅ UI updates correctly
             window.location.reload();
-            setTasks(prev => prev.map(t => t.id === item.id ? { ...t, status } : t)); // ✅ Optimistic update
             toast.success("Task moved");
+        setTasks(prev => prev.map(t => t.id === item.id ? { ...t, status } : t)); // ✅ Optimistic update
         
     })
-
     .catch(() => toast.error("Failed to update task status"));
 
         },
@@ -80,8 +79,8 @@ function Task({ task, setTasks }) {
         // inside handleDelete
 axios.delete(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`)
     .then(() => {
-        // setTasks(prev => prev.filter(t => t.id !== task.id)); // ✅ UI updates directly
-        // window.location.reload(); // ✅ Refresh page to ensure all tasks are up-to-date
+        setTasks(prev => prev.filter(t => t.id !== task.id)); // ✅ UI updates directly
+        window.location.reload(); // ✅ Refresh page to ensure all tasks are up-to-date
         axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
         .then(res => setTasks(res.data)); // ✅ Refresh tasks from server
         setTasks(prev => prev.filter(t => t.id !== task.id)); // ✅ Optimistic update

@@ -33,7 +33,6 @@ app.put('/tasks/:id', (req, res) => {
   db.query('UPDATE tasks SET status = ? WHERE id = ?', [status, req.params.id], (err) => {
     if (err) return res.status(500).send(err);
     res.send('Task updated');
-    res.json({ id: req.params.id, status });
   });
 });
 
