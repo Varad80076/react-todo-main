@@ -26,6 +26,12 @@ export default function CreateTask({ tasks, setTasks }) {
         setTasks(prev => [...prev, res.data]); 
                 setTaskName("");
                 toast.success('Task created successfully');
+                // Optionally, you can refresh tasks from the server
+                axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
+                    .then(res => setTasks(res.data));
+                // Or you can just optimistically update the UI as shown above
+                setTasks(prev => [...prev, newTask]); // Optimistic update   
+
             })
             .catch((err) => {
                 console.error("Create task error", err);
