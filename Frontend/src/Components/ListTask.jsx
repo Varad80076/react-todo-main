@@ -81,7 +81,7 @@ function Task({ task, setTasks }) {
 axios.delete(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`)
     .then(() => {
         // setTasks(prev => prev.filter(t => t.id !== task.id)); // ✅ UI updates directly
-        window.location.reload(); // ✅ Refresh page to ensure all tasks are up-to-date
+        // window.location.reload(); // ✅ Refresh page to ensure all tasks are up-to-date
         axios.get(`${import.meta.env.VITE_API_URL}/tasks`)
         .then(res => setTasks(res.data)); // ✅ Refresh tasks from server
         setTasks(prev => prev.filter(t => t.id !== task.id)); // ✅ Optimistic update
